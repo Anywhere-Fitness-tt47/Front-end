@@ -18,7 +18,8 @@ const initialLoginValues = {
 };
 
 const initialSignupValues = {
-  name: "",
+  first_name: "",
+  last_name: '',
   email: "",
   username: "",
   password: "",
@@ -26,7 +27,8 @@ const initialSignupValues = {
 };
 
 const initialSignupErrors = {
-  name: "",
+  first_name: "",
+  last_name: '',
   email: "",
   username: "",
   password: "",
