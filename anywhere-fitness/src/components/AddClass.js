@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 
 export default function AddClass(props) {
-  const { name, type, start_time, duration, intensity_level, location, max_size } = props.values;
+  const { instructor_username, name, type, start_time, duration, intensity_level, location, max_size } = props.values;
   const { update, submit, errors } = props;
 
   const handleChange = evt => {
@@ -18,6 +18,17 @@ export default function AddClass(props) {
   return (
     <div>
       <StyledForm>
+        <div>
+          <label> Instructor's username: 
+            <input
+              type='text'
+              name='instructor_username'
+              value={instructor_username}
+              onChange={handleChange}
+            />
+          </label>
+          <span>{errors.instructor_username}</span>
+        </div>
         <div>
           <label> Name:
             <input 
@@ -134,6 +145,6 @@ const StyledForm = styled.form`
   }
 
   div {
-    margin: 3%;
+    margin: 2%;
   }
 `

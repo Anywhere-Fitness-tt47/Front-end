@@ -39,6 +39,7 @@ const initialSignupErrors = {
 };
 
 const initialClassValues = {
+  instructor_username: "",
   name: "",
   type: "",
   start_time: "",
@@ -50,6 +51,7 @@ const initialClassValues = {
 };
 
 const initialClassErrors = {
+  instructor_username: "",
   name: "",
   type: "",
   start_time: "",
@@ -147,6 +149,9 @@ function App() {
           <StyledHead>Anywhere Fitness</StyledHead>
           <Link style={{ textDecoration: "none" }} to="/home">
             Home
+          </Link>
+          <Link style={{ textDecoration: "none" }} to="/classes/add">
+            Create new class
           </Link>
           <Link style={{ textDecoration: "none" }} to="/login">
             Login
