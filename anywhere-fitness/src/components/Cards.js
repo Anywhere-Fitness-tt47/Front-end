@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link, Route } from 'react-router-dom';
+import EditClass from './EditClass';
 
 export default function Cards(props) {
 
@@ -19,7 +21,13 @@ export default function Cards(props) {
       <p>Time={props.details.start_time}</p>
       <p>Location={props.details.location}</p>
       <button onClick={handleClick} disabled={joined}>{joined ? 'Joined Class' : 'Join Class'}</button>
-    </StyledCard>
+      <Link to='/classes/edit'>Edit Class</Link>
+      <Route path='/classes/edit'>
+        <EditClass details={props.details}/>
+      </Route>
+      </StyledCard>
+    
+    
   );
 }
 
