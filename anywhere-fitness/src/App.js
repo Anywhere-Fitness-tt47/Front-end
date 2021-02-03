@@ -5,8 +5,10 @@ import { Route, Link } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
+import AddClass from "./components/AddClass";
 import * as yup from "yup";
 import schema from "./validation/SignupSchema";
+import classSchema from "./validation/ClassSchema";
 import styled from "styled-components";
 import BGImage from "./images/image.jpg";
 import axios from "axios";
@@ -35,12 +37,36 @@ const initialSignupErrors = {
   role: "",
 };
 
+const initialClassValues = {
+  name: '',
+  type: '',
+  start_time: '',
+  duration: '',
+  intensity_level: '',
+  location: '',
+  attendees: 0,
+  max_size: 0
+}
+
+const initialClassErrors = {
+  name: '',
+  type: '',
+  start_time: '',
+  duration: '',
+  intensity_level: '',
+  location: '',
+  max_size: ''
+}
+
 function App() {
   const [loginValues, setLoginValues] = useState(initialLoginValues);
   const [signupValues, setSignupValues] = useState(initialSignupValues);
   const [signupErrors, setSignupErrors] = useState(initialSignupErrors);
+  const [classValues, setClassValues] = useState(initialClassValues);
+  const [classErrors, setClassErrors] = useState(initialClassErrors);
   const [disabled, setDisabled] = useState(true);
   const { push } = useHistory();
+
   const updateLogin = (name, value) => {
     setLoginValues({ ...loginValues, [name]: value });
   };
@@ -58,6 +84,19 @@ function App() {
 
     setSignupValues({ ...signupValues, [name]: value });
   };
+
+  const updateClass = (name, value) => {
+    yup.reach(classSchema, name)
+      .validate(value)
+      .then(() => {
+        setClassErrors({ ...classErrors, [name]: ''});
+      })
+      .catch(err => {
+        setClassErrors({ ...classErrors, [name]: err.errors[0] });
+      });
+
+    setClassValues({ ...classValues, [name]: value });
+  }
 
   const submitLogin = () => {
     console.log("Here are the submitted values for login", { loginValues });
@@ -80,6 +119,11 @@ function App() {
       .catch((err) => [console.log(err, "error submitting in signup")]);
     setSignupValues(initialSignupValues);
   };
+
+  const submitClass = () => {
+    console.log("Here are the submitted values for the new class", classValues);
+    setClassValues(initialClassValues);
+  }
 
   useEffect(() => {
     schema.isValid(signupValues).then((valid) => setDisabled(!valid));
@@ -118,6 +162,14 @@ function App() {
               submit={submitSignup}
               errors={signupErrors}
               disabled={disabled}
+            />
+          </Route>
+          <Route path="/classes/add">
+            <AddClass 
+              values={classValues}
+              update={updateClass}
+              submit={submitClass}
+              errors={classErrors}
             />
           </Route>
         </div>
