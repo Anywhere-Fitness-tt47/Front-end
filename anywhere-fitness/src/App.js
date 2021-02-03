@@ -12,7 +12,8 @@ import classSchema from "./validation/ClassSchema";
 import styled from "styled-components";
 import BGImage from "./images/image.jpg";
 import axios from "axios";
-import axiosWithAuth from "./utils/axiosWithAuth";
+import PrivateRoute from "./utils/PrivateRoute";
+// import axiosWithAuth from "./utils/axiosWithAuth";
 
 const initialLoginValues = {
   username: "",
@@ -21,7 +22,7 @@ const initialLoginValues = {
 
 const initialSignupValues = {
   first_name: "",
-  last_name: '',
+  last_name: "",
   email: "",
   username: "",
   password: "",
@@ -30,7 +31,7 @@ const initialSignupValues = {
 
 const initialSignupErrors = {
   first_name: "",
-  last_name: '',
+  last_name: "",
   email: "",
   username: "",
   password: "",
@@ -38,25 +39,25 @@ const initialSignupErrors = {
 };
 
 const initialClassValues = {
-  name: '',
-  type: '',
-  start_time: '',
-  duration: '',
-  intensity_level: '',
-  location: '',
+  name: "",
+  type: "",
+  start_time: "",
+  duration: "",
+  intensity_level: "",
+  location: "",
   attendees: 0,
-  max_size: 0
-}
+  max_size: 0,
+};
 
 const initialClassErrors = {
-  name: '',
-  type: '',
-  start_time: '',
-  duration: '',
-  intensity_level: '',
-  location: '',
-  max_size: ''
-}
+  name: "",
+  type: "",
+  start_time: "",
+  duration: "",
+  intensity_level: "",
+  location: "",
+  max_size: "",
+};
 
 function App() {
   const [loginValues, setLoginValues] = useState(initialLoginValues);
@@ -86,20 +87,30 @@ function App() {
   };
 
   const updateClass = (name, value) => {
-    yup.reach(classSchema, name)
+    yup
+      .reach(classSchema, name)
       .validate(value)
       .then(() => {
-        setClassErrors({ ...classErrors, [name]: ''});
+        setClassErrors({ ...classErrors, [name]: "" });
       })
-      .catch(err => {
+      .catch((err) => {
         setClassErrors({ ...classErrors, [name]: err.errors[0] });
       });
 
     setClassValues({ ...classValues, [name]: value });
-  }
+  };
 
   const submitLogin = () => {
     console.log("Here are the submitted values for login", { loginValues });
+    axios
+      .post(
+        "https://anywhere-fitness-tt42.herokuapp.com/api/auth/login",
+        loginValues
+      )
+      .then((res) => {
+        localStorage.setItem("token", res.data.token);
+        push("/home");
+      });
     setLoginValues(initialLoginValues);
   };
 
@@ -112,9 +123,8 @@ function App() {
       )
       .then((res) => {
         console.table(res.data, "data from post of sign up");
-        // localStorage.setItem("token", res.data.payload);
         setSignupValues(initialSignupValues);
-        // push("/");
+        push("/login");
       })
       .catch((err) => [console.log(err, "error submitting in signup")]);
     setSignupValues(initialSignupValues);
@@ -122,8 +132,9 @@ function App() {
 
   const submitClass = () => {
     console.log("Here are the submitted values for the new class", classValues);
+    axios.post();
     setClassValues(initialClassValues);
-  }
+  };
 
   useEffect(() => {
     schema.isValid(signupValues).then((valid) => setDisabled(!valid));
@@ -134,7 +145,7 @@ function App() {
       <StyledBGImage>
         <StyledLink>
           <StyledHead>Anywhere Fitness</StyledHead>
-          <Link style={{ textDecoration: "none" }} to="/">
+          <Link style={{ textDecoration: "none" }} to="/home">
             Home
           </Link>
           <Link style={{ textDecoration: "none" }} to="/login">
@@ -145,9 +156,9 @@ function App() {
           </Link>
         </StyledLink>
         <div>
-          <Route exact path="/">
+          <PrivateRoute path="/home">
             <Home />
-          </Route>
+          </PrivateRoute>
           <Route path="/login">
             <Login
               values={loginValues}
@@ -165,7 +176,7 @@ function App() {
             />
           </Route>
           <Route path="/classes/add">
-            <AddClass 
+            <AddClass
               values={classValues}
               update={updateClass}
               submit={submitClass}
