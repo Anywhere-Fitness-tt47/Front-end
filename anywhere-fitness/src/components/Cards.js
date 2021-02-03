@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, Route } from 'react-router-dom';
 import EditClass from './EditClass';
+import PrivateRoute from '../utils/PrivateRoute';
 
 export default function Cards(props) {
 
@@ -22,10 +23,7 @@ export default function Cards(props) {
       <p>Location={props.details.location}</p>
       <button onClick={handleClick} disabled={joined}>{joined ? 'Joined Class' : 'Join Class'}</button>
       <Link to='/classes/edit'>Edit Class</Link>
-      <Route path='/classes/edit'>
-        <EditClass details={props.details}/>
-      </Route>
-      </StyledCard>
+    </StyledCard>
     
     
   );
