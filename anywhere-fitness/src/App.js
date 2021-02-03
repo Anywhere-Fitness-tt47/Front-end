@@ -200,6 +200,7 @@ const StyledBGImage = styled.div`
 
 const StyledHead = styled.h1`
   color: ${(pr) => pr.theme.headColor};
+  text-shadow: 2px 2px black;
 `;
 
 export default App;
