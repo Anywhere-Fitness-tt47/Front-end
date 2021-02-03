@@ -6,6 +6,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
 import AddClass from "./components/AddClass";
+import EditClass from './components/EditClass';
 import * as yup from "yup";
 import schema from "./validation/SignupSchema";
 import classSchema from "./validation/ClassSchema";
@@ -188,6 +189,9 @@ function App() {
               errors={classErrors}
             />
           </Route>
+          <PrivateRoute path='/classes/edit'>
+            <EditClass details={classValues} submit={submitClass} update={updateClass} errors={classErrors} />
+          </PrivateRoute>
         </div>
       </StyledBGImage>
     </div>

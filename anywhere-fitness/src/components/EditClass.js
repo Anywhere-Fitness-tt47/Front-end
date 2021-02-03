@@ -2,8 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default function EditClass(props) {
-    const { name, type, start_time, duration, intensity_level, location, max_size } = props.values;
+    const { name, type, start_time, duration, intensity_level, location, max_size } = props.details;
     const { update, submit, errors } = props;
+    // console.log(props,props.details)
   
     const handleChange = evt => {
       const { name, value } = evt.target;
@@ -95,7 +96,7 @@ export default function EditClass(props) {
               </label>
               <span>{errors.max_size}</span>
             </div>
-            <button onClick={handleSubmit}>Create class</button>
+            <button onClick={handleSubmit}>Submit changes</button>
           </StyledForm>
         </div>
       )
