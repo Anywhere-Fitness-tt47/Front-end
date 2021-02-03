@@ -1,6 +1,7 @@
 import * as yup from "yup";
 
 export default yup.object().shape({
+  instructor_username: yup.string().required('Username is a required field.'),
   name: yup.string().required('Name is a required field.'),
   type: yup.string().required('Type is a required field.'),
   start_time: yup.string().required('Please enter a start time.'),
