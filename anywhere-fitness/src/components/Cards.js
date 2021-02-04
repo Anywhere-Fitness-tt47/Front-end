@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link, Route } from 'react-router-dom';
-import EditClass from './EditClass';
-import PrivateRoute from '../utils/PrivateRoute';
+import { Link, Route } from "react-router-dom";
+import EditClass from "./EditClass";
+import PrivateRoute from "../utils/PrivateRoute";
 
 export default function Cards(props) {
-
+  const { class_id } = props.details;
+  console.log(class_id, "see the id?");
   const handleClick = () => {
     setJoined(true);
     console.log("You've joined this class");
-  }
+  };
 
   const [joined, setJoined] = useState(false);
-
-  console.log(props, "card props");
 
   return (
     <StyledCard>
@@ -21,11 +20,11 @@ export default function Cards(props) {
       <p>Type={props.details.type}</p>
       <p>Time={props.details.start_time}</p>
       <p>Location={props.details.location}</p>
-      <button onClick={handleClick} disabled={joined}>{joined ? 'Joined Class' : 'Join Class'}</button>
-      <Link to='/classes/edit'>Edit Class</Link>
+      <button onClick={handleClick} disabled={joined}>
+        {joined ? "Joined Class" : "Join Class"}
+      </button>
+      <Link to={`/classes/edit/${class_id}`}>Edit Class</Link>
     </StyledCard>
-    
-    
   );
 }
 
