@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link, Route } from "react-router-dom";
-import EditClass from "./EditClass";
-import PrivateRoute from "../utils/PrivateRoute";
+import { Link } from "react-router-dom";
+// import EditClass from "./EditClass";
+// import PrivateRoute from "../utils/PrivateRoute";
 
 export default function Cards(props) {
   const { class_id } = props.details;

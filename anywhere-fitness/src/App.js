@@ -135,7 +135,6 @@ function App() {
 
   const submitClass = () => {
     console.log("Here are the submitted values for the new class", classValues);
-    axios.post();
     setClassValues(initialClassValues);
   };
 

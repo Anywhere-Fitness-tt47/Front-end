@@ -12,11 +12,11 @@ const initialEditFormValues = {
   location: "",
   attendees: null,
   max_size: null,
-  instructor_username: "" 
-}
+  instructor_username: "",
+};
 
 export default function EditClass(props) {
-  const [ editFormValues, setEditFormValues ] = useState(initialEditFormValues)
+  const [editFormValues, setEditFormValues] = useState(initialEditFormValues);
   // const {
   //   name,
   //   type,
@@ -26,16 +26,14 @@ export default function EditClass(props) {
   //   location,
   //   max_size,
   // } = props.details;
-  const { update, submit, errors, classValues } = props;
+  const { submit, errors } = props;
   const { id } = useParams();
   console.log(editFormValues, "look at me!");
   const { push } = useHistory();
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-    setEditFormValues({...editFormValues,
-      [name]: value
-    });
+    setEditFormValues({ ...editFormValues, [name]: value });
   };
 
   const handleSubmit = (evt) => {
@@ -54,15 +52,13 @@ export default function EditClass(props) {
 
   useEffect(() => {
     axiosWithAuth()
-      .get(
-        `https://anywhere-fitness-tt42.herokuapp.com/api/classes/${id}`
-      )
+      .get(`https://anywhere-fitness-tt42.herokuapp.com/api/classes/${id}`)
       .then((res) => {
         setEditFormValues(res.data);
       })
       .catch((err) => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   }, []);
 
   return (
@@ -162,6 +158,17 @@ export default function EditClass(props) {
             />
           </label>
           <span>{errors.max_size}</span>
+          <label>
+            {" "}
+            attendees:
+            <input
+              type="number"
+              name="attendees"
+              value={editFormValues.attendees}
+              onChange={handleChange}
+            />
+          </label>
+          <span>{errors.attendees}</span>
         </div>
         <button onClick={handleSubmit}>Submit changes</button>
       </StyledForm>
