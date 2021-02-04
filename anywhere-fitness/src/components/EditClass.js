@@ -1,33 +1,49 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import styled from "styled-components";
 import axiosWithAuth from "../utils/axiosWithAuth";
 
+const initialEditFormValues = {
+  name: "",
+  type: "",
+  start_time: "",
+  duration: null,
+  intensity_level: "",
+  location: "",
+  attendees: null,
+  max_size: null,
+  instructor_username: "" 
+}
+
 export default function EditClass(props) {
-  const {
-    name,
-    type,
-    start_time,
-    duration,
-    intensity_level,
-    location,
-    max_size,
-  } = props.details;
-  const { update, submit, errors, classValues, setClassValues } = props;
-  const { class_id } = useParams();
-  console.log(class_id, "look at me!");
+  const [ editFormValues, setEditFormValues ] = useState(initialEditFormValues)
+  // const {
+  //   name,
+  //   type,
+  //   start_time,
+  //   duration,
+  //   intensity_level,
+  //   location,
+  //   max_size,
+  // } = props.details;
+  const { update, submit, errors, classValues } = props;
+  const { id } = useParams();
+  console.log(editFormValues, "look at me!");
   const { push } = useHistory();
+
   const handleChange = (evt) => {
     const { name, value } = evt.target;
-    update(name, value);
+    setEditFormValues({...editFormValues,
+      [name]: value
+    });
   };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     axiosWithAuth()
       .put(
-        "https://anywhere-fitness-tt42.herokuapp.com/api/classes",
-        props.details
+        `https://anywhere-fitness-tt42.herokuapp.com/api/classes/${id}`,
+        editFormValues
       )
       .then((res) => {
         console.log(res.details);
@@ -39,11 +55,14 @@ export default function EditClass(props) {
   useEffect(() => {
     axiosWithAuth()
       .get(
-        `https://anywhere-fitness-tt42.herokuapp.com/api/classes/${class_id}`
+        `https://anywhere-fitness-tt42.herokuapp.com/api/classes/${id}`
       )
       .then((res) => {
-        setClassValues(res.data);
-      });
+        setEditFormValues(res.data);
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, []);
 
   return (
@@ -56,7 +75,7 @@ export default function EditClass(props) {
             <input
               type="text"
               name="name"
-              value={classValues.name}
+              value={editFormValues.name}
               onChange={handleChange}
             />
           </label>
@@ -69,7 +88,7 @@ export default function EditClass(props) {
             <input
               type="text"
               name="type"
-              value={classValues.type}
+              value={editFormValues.type}
               onChange={handleChange}
             />
           </label>
@@ -82,7 +101,7 @@ export default function EditClass(props) {
             <input
               type="text"
               name="start_time"
-              value={classValues.start_time}
+              value={editFormValues.start_time}
               onChange={handleChange}
             />
           </label>
@@ -95,7 +114,7 @@ export default function EditClass(props) {
             <input
               type="text"
               name="duration"
-              value={classValues.duration}
+              value={editFormValues.duration}
               onChange={handleChange}
             />
           </label>
@@ -107,7 +126,7 @@ export default function EditClass(props) {
             Intensity level:
             <select
               name="intensity_level"
-              value={classValues.intensity_level}
+              value={editFormValues.intensity_level}
               onChange={handleChange}
             >
               <option value="">--select intensity--</option>
@@ -125,7 +144,7 @@ export default function EditClass(props) {
             <input
               type="text"
               name="location"
-              value={classValues.location}
+              value={editFormValues.location}
               onChange={handleChange}
             />
           </label>
@@ -138,7 +157,7 @@ export default function EditClass(props) {
             <input
               type="number"
               name="max_size"
-              value={classValues.max_size}
+              value={editFormValues.max_size}
               onChange={handleChange}
             />
           </label>
