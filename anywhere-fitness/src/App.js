@@ -7,6 +7,7 @@ import Signup from "./components/Signup";
 import Home from "./components/Home";
 import AddClass from "./components/AddClass";
 import EditClass from './components/EditClass';
+import LandingPage from './components/LandingPage';
 import * as yup from "yup";
 import schema from "./validation/SignupSchema";
 import classSchema from "./validation/ClassSchema";
@@ -162,6 +163,9 @@ function App() {
           </Link>
         </StyledLink>
         <div>
+          <Route exact path='/'>
+            <LandingPage />
+          </Route>
           <PrivateRoute path="/home">
             <Home />
           </PrivateRoute>
@@ -205,10 +209,17 @@ const StyledLink = styled.div`
   align-items: baseline;
 
   a {
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 20%;
     padding: 4px 4px;
-    background-color: ${(pr) => pr.theme.linkBGColor};
+    background-color: teal;
+    color: white;
+  }
+
+  a:hover {
+    border: 2px solid teal;
+    background-color: white;
+    color: teal;
   }
 `;
 
@@ -216,6 +227,7 @@ const StyledBGImage = styled.div`
   background-image: url(${BGImage});
   background-repeat: no-repeat;
   background-size: 100%;
+  height: 100vh;
 `;
 
 const StyledHead = styled.h1`
