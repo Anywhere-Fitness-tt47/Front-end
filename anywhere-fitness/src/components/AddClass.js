@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import axiosWithAuth from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
+
 const initialNewClassFormValues = {
   name: "",
   type: "",
