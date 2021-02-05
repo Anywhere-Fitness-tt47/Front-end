@@ -30,10 +30,12 @@ export default function Cards(props) {
 
 const StyledCard = styled.div`
   border: 3px solid black;
-  width:20%;
+  width:20rem;
   display:inline-block;
   background-color: rgba(255,255,255,0.66);
   margin: 3px;
+  padding-left: 4px;
+  padding-bottom: 4px;
 
   &:hover {
     background-color: white;

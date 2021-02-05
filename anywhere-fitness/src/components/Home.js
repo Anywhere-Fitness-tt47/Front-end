@@ -21,17 +21,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="classCardContainer">
+    <FlexContainer className="classCardContainer">
       {classList.map((item) => {
         return <Cards details={item} key={item.class_id} />;
       })}
-    </div>
+    </FlexContainer>
   );
 }
 
 const FlexContainer = styled.div`
   display:flex;
   flex-flow: row wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: flex-start;
 `
