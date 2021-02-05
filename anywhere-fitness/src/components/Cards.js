@@ -16,10 +16,10 @@ export default function Cards(props) {
 
   return (
     <StyledCard>
-      <h3>Name={props.details.name}</h3>
-      <p>Type={props.details.type}</p>
-      <p>Time={props.details.start_time}</p>
-      <p>Location={props.details.location}</p>
+      <h3>Class name: {props.details.name}</h3>
+      <p>Type: {props.details.type}</p>
+      <p>Start time: {props.details.start_time}</p>
+      <p>Location: {props.details.location}</p>
       <button onClick={handleClick} disabled={joined}>
         {joined ? "Joined Class" : "Join Class"}
       </button>
@@ -30,4 +30,18 @@ export default function Cards(props) {
 
 const StyledCard = styled.div`
   border: 3px solid black;
+  width:20rem;
+  display:inline-block;
+  background-color: rgba(255,255,255,0.66);
+  margin: 3px;
+  padding-left: 4px;
+  padding-bottom: 4px;
+
+  &:hover {
+    background-color: white;
+  }
+
+  button {
+    margin-right:3px;
+  }
 `;

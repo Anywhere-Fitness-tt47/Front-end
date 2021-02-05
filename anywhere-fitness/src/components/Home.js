@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cards from "./Cards";
 import axiosWithAuth from "../utils/axiosWithAuth";
+import styled from "styled-components";
 
 const initialClassList = [];
 
@@ -20,10 +21,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="classCardContainer">
+    <FlexContainer className="classCardContainer">
       {classList.map((item) => {
         return <Cards details={item} key={item.class_id} />;
       })}
-    </div>
+    </FlexContainer>
   );
 }
+
+const FlexContainer = styled.div`
+  display:flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+`
