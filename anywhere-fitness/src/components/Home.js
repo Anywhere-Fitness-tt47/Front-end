@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Cards from "./Cards";
 import axiosWithAuth from "../utils/axiosWithAuth";
+import styled from "styled-components";
 
 const initialClassList = [];
 
@@ -27,3 +28,10 @@ export default function Home() {
     </div>
   );
 }
+
+const FlexContainer = styled.div`
+  display:flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: flex-start;
+`
